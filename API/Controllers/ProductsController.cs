@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Data;
+using API.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -6,16 +9,27 @@ namespace API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        [HttpGet]
-        public string GetProducts()
+        private readonly DbStoreContext _context;
+
+        public ProductsController(DbStoreContext context)
         {
-            return "Get all products";
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Product>>> GetProducts()
+        {
+            List<Product> products = await _context.Products.ToListAsync();
+
+            return products;
         }
 
         [HttpGet("{id}")]
-        public string GetProduct(int id)
+        public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            return $"Get product by ID: {id}";
+            Product product = await _context.Products.FindAsync(id);
+
+            return product;
         }
     }
 }
