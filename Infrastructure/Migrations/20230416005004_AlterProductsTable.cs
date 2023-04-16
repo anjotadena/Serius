@@ -13,8 +13,9 @@ namespace Infrastructure.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "Products",
-                type: "nvarchar(max)",
-                nullable: true,
+                type: "nvarchar(100)",
+                maxLength: 100,
+                nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
@@ -28,14 +29,17 @@ namespace Infrastructure.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "Description",
                 table: "Products",
-                type: "nvarchar(max)",
-                nullable: true);
+                type: "nvarchar(180)",
+                maxLength: 180,
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "PictureUrl",
                 table: "Products",
                 type: "nvarchar(max)",
-                nullable: true);
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.AddColumn<decimal>(
                 name: "Price",
@@ -152,10 +156,9 @@ namespace Infrastructure.Migrations
                 table: "Products",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                oldType: "nvarchar(100)",
+                oldMaxLength: 100);
         }
     }
 }
