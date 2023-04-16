@@ -15,7 +15,7 @@ namespace Infrastructure.Config
             builder.Property(p => p.DiscountPercentage).HasColumnType("decimal(18,4)");
             builder.Property(p => p.Rating).HasColumnType("decimal(18,2)");
             builder.Property(p => p.Stock).IsRequired();
-            builder.Property(p => p.Tumbnail).IsRequired();
+            builder.Property(p => p.Thumbnail).IsRequired();
             builder.HasMany(p => p.Images).WithOne(i => i.Product).HasForeignKey(i => i.ProductId);
             builder.HasOne(b => b.Brand).WithMany().HasForeignKey(p => p.BrandId);
             builder.HasOne(t => t.Type).WithMany().HasForeignKey(p => p.TypeId);

@@ -14,7 +14,7 @@ namespace Core.Entities
 
         public decimal Rating { get; set; }
 
-        public string Tumbnail { get; set; }
+        public string Thumbnail { get; set; }
 
         public ICollection<Image> Images { get; set; }
 

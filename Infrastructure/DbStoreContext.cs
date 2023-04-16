@@ -17,6 +17,8 @@ namespace Infrastructure
 
         public DbSet<Core.Entities.Type> Types { get; set; }
 
+        public DbSet<Image> Images { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

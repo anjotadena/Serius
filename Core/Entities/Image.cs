@@ -2,7 +2,7 @@
 {
     public class Image : BaseEntity
     {
-        public string FileName { get; set; }
+        public string Url { get; set; }
 
         public int ProductId { get; set; }
 

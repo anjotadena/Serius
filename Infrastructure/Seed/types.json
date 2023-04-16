@@ -1,26 +1,20 @@
 [
   {
-    "Id": 1,
     "Name": "smartphones"
   },
   {
-    "Id": 2,
     "Name": "laptops"
   },
   {
-    "Id": 3,
     "Name": "fragrances"
   },
   {
-    "Id": 4,
     "Name": "skincare"
   },
   {
-    "Id": 5,
     "Name": "groceries"
   },
   {
-    "Id": 6,
     "Name": "home-decoration"
   }
 ]
