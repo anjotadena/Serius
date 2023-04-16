@@ -4,14 +4,21 @@ namespace Core.Entities
 {
     public class Product : BaseEntity
     {
-        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; }
 
         public string Description { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
-        public string PictureUrl { get; set; }
+        public decimal DiscountPercentage { get; set; }
+
+        public decimal Rating { get; set; }
+
+        public string Tumbnail { get; set; }
+
+        public ICollection<Image> Images { get; set; }
+
+        public int Stock { get; set; }
 
         public Type Type { get; set; }
 

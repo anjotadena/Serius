@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DbStoreContext))]
-    [Migration("20230416010606_InitialCreate")]
+    [Migration("20230416025228_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,9 +32,33 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("Core.Entities.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Core.Entities.Product", b =>
@@ -53,17 +77,26 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(180)
                         .HasColumnType("nvarchar(180)");
 
-                    b.Property<string>("Name")
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("PictureUrl")
+                    b.Property<string>("Tumbnail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
@@ -85,9 +118,23 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Types");
+                });
+
+            modelBuilder.Entity("Core.Entities.Image", b =>
+                {
+                    b.HasOne("Core.Entities.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Core.Entities.Product", b =>
@@ -107,6 +154,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Core.Entities.Product", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }
