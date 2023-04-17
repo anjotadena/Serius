@@ -2,6 +2,7 @@
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Core.Interfaces;
+using Infrastructure.Repositories;
 
 namespace API.Controllers
 {
@@ -9,27 +10,23 @@ namespace API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IGenericRepository<Product> _productRepository;
 
-        public ProductsController(IProductRepository repository)
+        public ProductsController(IGenericRepository<Product> productRepository)
         {
-            _productRepository = repository;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var products = await _productRepository.GetProductsAsync();
-
-            return Ok(products);
+            return Ok(await _productRepository.GetAllAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
-
-            return Ok(product);
+            return Ok(await _productRepository.GetByIdAsync(id));
         }
     }
 }
