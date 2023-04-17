@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Specification;
 
 namespace Core.Interfaces
 {
@@ -7,5 +8,9 @@ namespace Core.Interfaces
         Task<T> GetByIdAsync(int id);
 
         Task<IReadOnlyList<T>> GetAllAsync();
+
+        Task<T> GetEntityWithSpec(ISpecification<T> spec);
+
+        Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
     }
 }
