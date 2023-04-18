@@ -5,6 +5,7 @@ using Core.Interfaces;
 using Infrastructure.Repositories;
 using Core.Specification;
 using API.Dtos;
+using AutoMapper;
 
 namespace API.Controllers
 {
@@ -14,8 +15,11 @@ namespace API.Controllers
     {
         private readonly IGenericRepository<Product> _productRepository;
 
-        public ProductsController(IGenericRepository<Product> productRepository)
+        private readonly IMapper _mapper;
+
+        public ProductsController(IMapper mapper, IGenericRepository<Product> productRepository)
         {
+            _mapper = mapper;
             _productRepository = productRepository;
         }
 
@@ -46,19 +50,7 @@ namespace API.Controllers
             var spec = new ProductsWithTypesAndBrandSpecification(id);
             var product = await _productRepository.GetEntityWithSpec(spec);
 
-            return Ok(new ProductReturnDto
-            {
-                Id = product.Id,
-                Title = product.Title,
-                Description = product.Description,
-                Price = product.Price,
-                Type = product.Type.Name,
-                Brand = product.Brand.Name,
-                Rating = product.Rating,
-                DiscountPercentage = product.DiscountPercentage,
-                Thumbnail = product.Thumbnail,
-                Stock = product.Stock
-            });
+            return Ok(_mapper.Map<Product, ProductReturnDto>(product));
         }
     }
 }

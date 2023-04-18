@@ -19,6 +19,9 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // since our generic repository dont have type
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+// Add AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
