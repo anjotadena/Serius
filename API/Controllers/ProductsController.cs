@@ -1,17 +1,13 @@
-﻿using Infrastructure;
-using Core.Entities;
+﻿using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Core.Interfaces;
-using Infrastructure.Repositories;
 using Core.Specification;
 using API.Dtos;
 using AutoMapper;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BasesApiController
     {
         private readonly IGenericRepository<Product> _productRepository;
 

@@ -6,7 +6,7 @@ namespace Infrastructure.Config
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
-        void IEntityTypeConfiguration<Product>.Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.Property(p => p.Id).IsRequired();
             builder.Property(p => p.Title).IsRequired().HasMaxLength(100);
