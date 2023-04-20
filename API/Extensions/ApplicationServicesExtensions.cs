@@ -24,7 +24,7 @@ namespace API.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             // since our generic repository dont have type
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.Configure<ApiBehaviorOptions>(options =>
+            _ = services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = actionContext =>
                 {
@@ -44,6 +44,14 @@ namespace API.Extensions
 
             // Add AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"); // *
+                });
+            });
 
             return services;
         }
